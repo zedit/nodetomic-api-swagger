@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  generateName: test-test-
+  name: swagger
+  labels:
+    app: {{ .Chart.Name }}-swagger
+    tier: frontend
+spec:
+  type: {{ .Values.swagger.service.type }}
+  ports:
+  - port: {{ .Values.swagger.service.port }}
+  selector:
+    app: {{ .Chart.Name }}-swagger 

@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  generateName: test-test-
+  name: mongo
+spec:
+  replicas: {{ .Values.mongo.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-mongo 
+    spec:
+      containers:
+      - image: "{{ .Values.mongo.image.repository }}:{{ .Values.mongo.image.tag }}" 
+        name: mongo
+        ports:
+        - name: mongo
+          containerPort: {{ .Values.mongo.service.port }}
+          hostPort: {{ .Values.mongo.service.port }}

@@ -1,0 +1,16 @@
+aiVersion: v1
+kind: Service
+metadata:
+  generateName: test-test-
+  name: redis
+  labels:
+    app: {{ .Chart.Name }}-redis 
+    role: master
+    tier: backend
+spec:
+  type: {{ .Values.redis.service.type }}
+  ports:
+  - port: {{ .Values.redis.service.port }}
+    targetPort: {{ .Values.redis.service.port }}
+  selector:
+    app: {{ .Chart.Name }}-redis

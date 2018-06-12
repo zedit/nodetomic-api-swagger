@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  generateName: test-test-
+  name: swagger
+spec:
+  replicas: {{ .Values.swagger.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-swagger 
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.swagger.image.repository }}:{{ .Values.swagger.image.tag }}"
+        ports: 
+        - containerPort: 8004
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: REDIS_URL
+          value: redis.default.svc.cluster.local:6379
+        - name: MONGO_URL
+          value: mongo.default.svc.cluster.local:27017
+        - name: GET_HOSTS_FROM
+        tier: frontend

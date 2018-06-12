@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  generateName: test-test-
+  name: redis
+spec:
+  replicas: {{ .Values.redis.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-redis 
+        role: master
+        tier: backend
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: {{ .Values.redis.internalPort }}

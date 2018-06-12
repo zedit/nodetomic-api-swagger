@@ -1,0 +1,30 @@
+swagger:
+  replicaCount: 1
+  image:
+    repository: swagger
+    tag: v0.0.1
+    pullPolicy: IfNotPresent
+  internalPort: 8000
+  service:
+    type: LoadBalancer 
+    port: 8000
+mongo:
+  replicaCount: 1
+  image:
+    repository: mongo
+    tag: latest
+    pullPolicy: IfNotPresent
+  internalPort: 27017
+  service:
+    type: ClusterIP
+    port: 27017
+redis:
+  replicaCount: 1
+  image:
+    repository: redis
+    tag: latest
+    pullPolicy: IfNotPresent
+  internalPort: 6379
+  service:
+    type: LoadBalancer
+    port: 6379
